@@ -3,5 +3,7 @@ export const POST_POKEMON = "POST_POKEMON"
 export const DETAIL_POKEMON = "DETAIL_POKEMON"
 export const GET_POKEMON_BY_ID = "GET_POKEMON_BY_ID"
 export const GET_POKEMON_BY_NAME = "GET_POKEMON_BY_NAME"
-
+export const CLEAR = "CLEAR"
+export const GET_TYPES = "GET_TYPES"
+export const FILTER_TYPES = "FILTER_TYPES"
 

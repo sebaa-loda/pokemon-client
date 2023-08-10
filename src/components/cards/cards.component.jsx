@@ -1,21 +1,28 @@
 import "./cards.styles.css";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getPokemons } from "../../redux/actions";
+import Card from "../card/card.component";
+import { useSelector } from "react-redux";
 
-function Cards() {
-  const dispatch = useDispatch();
-  const pokemons = useSelector((state) => state.pokemons);
-
-  useEffect(() => {
-    dispatch(getPokemons());
-  }, [pokemons]);
-
+export default function Cards() {
+  const { typeFilter, pokemons } = useSelector((state) => state);
+  const filterType = (paramsTypes) => (pokemon) =>
+    paramsTypes.length
+      ? pokemon.types.some((pokeType) => paramsTypes.includes(pokeType.name))
+      : pokemon;
+  
   return (
-    <div className="App">
-      <h1>cardsss</h1>
+    <div className="cards">
+      {pokemons &&
+        pokemons.filter(filterType(typeFilter)).map((pokemon) => {
+          return (
+            <Card
+              key={pokemon.id}
+              id={pokemon.id}
+              name={pokemon.name}
+              types={pokemon.types}
+              image={pokemon.image}
+            />
+          );
+        })}
     </div>
   );
 }
-
-export default Cards;
