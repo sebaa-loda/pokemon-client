@@ -4,7 +4,8 @@ import {
   GET_POKEMONS,
   GET_POKEMON_BY_ID,
   GET_POKEMON_BY_NAME,
-  GET_TYPES /*GET_POKEMON_BY_NAME,POST_POKEMON */,
+  GET_TYPES, /*GET_POKEMON_BY_NAME,POST_POKEMON */
+  POST_POKEMON,
 } from "./actionsTypes.js";
 import axios from "axios";
 
@@ -41,17 +42,16 @@ export const getPokemonsById = (id) => {
 };
 
 export const getPokemonsByName = (name) => {
-  const endPoint = `http://localhost:3001/pokemons/${name}`;
+  const endPoint = `http://localhost:3001/pokemons?${name ? `name=${name}` : "name"}`;
   return async (dispatch) => {
     try {
       const { data } = await axios(endPoint);
-      if (!data) throw Error("no pokemon found");
       return dispatch({
         type: GET_POKEMON_BY_NAME,
         payload: data,
       });
     } catch (error) {
-      return error.message;
+      return [];
     }
   };
 };
@@ -64,8 +64,10 @@ export const clearDetail = () => {
 };
 
 export const getTypes = () => {
+  const endPoint = "http://localhost:3001/types"
   return async (dispatch) => {
-    const { data } = await axios("http://localhost:3001/types");
+    const { data } = await axios(endPoint);
+    console.log(data);
     return dispatch({
       type: GET_TYPES,
       payload: data,
@@ -78,4 +80,15 @@ export const typesFilter = (type) => {
         type: FILTER_TYPES,
         payload: type,
     }
+}
+
+export const createPokemon = () => {
+   const endPoint = "http://localhost:3001/pokemons/"
+   return async (dispatch) => {
+    const {data} = await axios.post(endPoint)
+    return dispatch({
+      type: POST_POKEMON,
+      payload: data,
+    })
+   }
 }

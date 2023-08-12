@@ -8,21 +8,28 @@ export default function Cards() {
     paramsTypes.length
       ? pokemon.types.some((pokeType) => paramsTypes.includes(pokeType.name))
       : pokemon;
-  
+
   return (
-    <div className="cards">
-      {pokemons &&
-        pokemons.filter(filterType(typeFilter)).map((pokemon) => {
-          return (
-            <Card
-              key={pokemon.id}
-              id={pokemon.id}
-              name={pokemon.name}
-              types={pokemon.types}
-              image={pokemon.image}
-            />
-          );
-        })}
+    <div className="cards" >
+      {pokemons ? (
+        pokemons.length ? (
+          pokemons.filter(filterType(typeFilter)).map((pokemon) => {
+            return (
+              <Card
+                key={pokemon.id}
+                id={pokemon.id}
+                name={pokemon.name}
+                types={pokemon.types}
+                image={pokemon.image}
+              />
+            );
+          })
+        ) : (
+          <div>Not pokemon found</div>
+        )
+      ) : (
+        <div>Loading</div>
+      )}
     </div>
   );
 }

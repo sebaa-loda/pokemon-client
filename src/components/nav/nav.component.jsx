@@ -6,10 +6,7 @@ export default function Nav() {
   return (
     <div className="App">
       <h1>searching pokemonardos</h1>
-      <SearchBar />
-      <button>
-        <NavLink to="/home">Enter</NavLink>
-      </button>
+      
       <button>
         <NavLink to="/create">Create</NavLink>
       </button>

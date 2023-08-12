@@ -1,20 +1,14 @@
-import { useDispatch } from 'react-redux';
-import './landing.styles.css';
-import { getTypes } from '../../redux/actions';
-import { useEffect } from 'react';
-
+import { NavLink } from "react-router-dom";
+import "./landing.styles.css";
 
 function Landing() {
-  const dispatch = useDispatch();
-
-  useEffect(() =>{
-    console.log(dispatch(getTypes()))
-  },[dispatch])
-
   return (
-    <div className="">
-      <h1>WELCOME</h1>
-      
+    <div className="landing">
+      <div className="blur">
+        <button className="button">
+          <NavLink to="/home" className="navLink">Start</NavLink>
+        </button>
+      </div>
     </div>
   );
 }

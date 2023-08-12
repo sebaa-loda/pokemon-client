@@ -1,10 +1,11 @@
-import {CLEAR, FILTER_TYPES, GET_POKEMONS, GET_POKEMON_BY_ID, GET_POKEMON_BY_NAME, GET_TYPES,/*GET_POKEMON_BY_NAME,POST_POKEMON */} from "./actionsTypes"
+import {CLEAR, FILTER_TYPES, GET_POKEMONS, GET_POKEMON_BY_ID, GET_POKEMON_BY_NAME, GET_TYPES, POST_POKEMON,/*GET_POKEMON_BY_NAME,POST_POKEMON */} from "./actionsTypes"
 
 const initialState = {
     pokemons : [],
     pokemonDetail : {},
     types : [],
 
+    
     typeFilter : [],
 }
 
@@ -39,6 +40,11 @@ const reducer = (state = initialState, action) => {
             return{
                 ...state,
                 typeFilter: action.payload
+            }
+        case POST_POKEMON:
+            return{
+                ...state,
+                pokemons: action.payload
             }
         default: 
         return {...state}
