@@ -1,15 +1,20 @@
 import "./nav.styles.css";
-import { NavLink } from "react-router-dom";
-import SearchBar from "../searchBar/searchBar.component";
+import { NavLink, useLocation } from "react-router-dom";
 
 export default function Nav() {
+  const location = useLocation()
+  const showCreate = location.pathname !== "/create"
+  const showHome  = location.pathname !== "/home"
   return (
-    <div className="App">
-      <h1>searching pokemonardos</h1>
-      
-      <button>
+    <div className="Nav">
+        {showHome && <button>
+        <NavLink to="/home">Home</NavLink>
+        </button>
+      }
+      {showCreate && <button>
         <NavLink to="/create">Create</NavLink>
       </button>
+      }
     </div>
   );
 }

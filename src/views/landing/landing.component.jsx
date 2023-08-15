@@ -5,7 +5,7 @@ function Landing() {
   return (
     <div className="landing">
       <div className="blur">
-        <button className="button">
+        <button className="buttonLanding">
           <NavLink to="/home" className="navLink">Start</NavLink>
         </button>
       </div>

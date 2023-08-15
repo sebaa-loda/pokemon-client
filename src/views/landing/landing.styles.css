@@ -16,13 +16,18 @@
     align-items: center;
 }
 
-.button{
+.buttonLanding{
     width: 100px;
     height: 70px;
     background-color: #03a871;
     border-radius: 15%;
     border: none;
     color: #fff;
+}
+
+.buttonLanding:hover {
+    transform: scale(1.5);
+    transition: all ease-out .3s;
 }
 
 .navLink{

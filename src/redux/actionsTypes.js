@@ -5,5 +5,5 @@ export const GET_POKEMON_BY_ID = "GET_POKEMON_BY_ID"
 export const GET_POKEMON_BY_NAME = "GET_POKEMON_BY_NAME"
 export const CLEAR = "CLEAR"
 export const GET_TYPES = "GET_TYPES"
-export const FILTER_TYPES = "FILTER_TYPES"
-
+export const ADD_TYPE_FILTER = "ADD_TYPE_FILTER"
+export const REMOVE_TYPE_FILTER = "REMOVE_TYPE_FILTER"

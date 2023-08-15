@@ -1,11 +1,12 @@
 import {
+  ADD_TYPE_FILTER,
   CLEAR,
-  FILTER_TYPES,
   GET_POKEMONS,
   GET_POKEMON_BY_ID,
   GET_POKEMON_BY_NAME,
-  GET_TYPES, /*GET_POKEMON_BY_NAME,POST_POKEMON */
+  GET_TYPES,
   POST_POKEMON,
+  REMOVE_TYPE_FILTER,
 } from "./actionsTypes.js";
 import axios from "axios";
 
@@ -67,7 +68,6 @@ export const getTypes = () => {
   const endPoint = "http://localhost:3001/types"
   return async (dispatch) => {
     const { data } = await axios(endPoint);
-    console.log(data);
     return dispatch({
       type: GET_TYPES,
       payload: data,
@@ -75,17 +75,24 @@ export const getTypes = () => {
   };
 };
 
-export const typesFilter = (type) => {
-    return {
-        type: FILTER_TYPES,
-        payload: type,
-    }
+export const addTypeFilter = (type) => {
+  return {
+    type: ADD_TYPE_FILTER,
+    payload: type,
+  }
 }
 
-export const createPokemon = () => {
+export const removeTypeFilter = (type) => {
+  return{
+    type: REMOVE_TYPE_FILTER,
+    payload: type,
+  }
+}
+
+export const createPokemon = (formPokemon) => {
    const endPoint = "http://localhost:3001/pokemons/"
    return async (dispatch) => {
-    const {data} = await axios.post(endPoint)
+    const {data} = await axios.post(endPoint, formPokemon)
     return dispatch({
       type: POST_POKEMON,
       payload: data,
