@@ -6,7 +6,9 @@ function Landing() {
     <div className="landing">
       <div className="blur">
         <button className="buttonLanding">
-          <NavLink to="/home" className="navLink">Start</NavLink>
+          <NavLink to="/home" className="navLink">
+            Start
+          </NavLink>
         </button>
       </div>
     </div>

@@ -7,3 +7,6 @@ export const CLEAR = "CLEAR"
 export const GET_TYPES = "GET_TYPES"
 export const ADD_TYPE_FILTER = "ADD_TYPE_FILTER"
 export const REMOVE_TYPE_FILTER = "REMOVE_TYPE_FILTER"
+export const SET_ORIGIN_FILTER = "SET_ORIGIN_FILTER"
+export const SET_ORDER = "SET_ORDER"
+

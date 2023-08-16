@@ -7,6 +7,8 @@ import {
   GET_TYPES,
   POST_POKEMON,
   REMOVE_TYPE_FILTER,
+  SET_ORDER,
+  SET_ORIGIN_FILTER,
 } from "./actionsTypes.js";
 import axios from "axios";
 
@@ -89,6 +91,20 @@ export const removeTypeFilter = (type) => {
   }
 }
 
+export const setOriginFilter = (origin) => {
+    return {
+      type: SET_ORIGIN_FILTER,
+      payload: origin,
+    }
+}
+
+export const setOrder = (order) => {
+  return {
+    type : SET_ORDER,
+    payload: order,
+  }
+}
+
 export const createPokemon = (formPokemon) => {
    const endPoint = "http://localhost:3001/pokemons/"
    return async (dispatch) => {
@@ -99,3 +115,5 @@ export const createPokemon = (formPokemon) => {
     })
    }
 }
+
+

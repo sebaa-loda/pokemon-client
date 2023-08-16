@@ -22,9 +22,8 @@ export default function SearchBar() {
   }, [debouncedSearch]);
 
   useEffect(() => {
-    if(searchPokemon !== "") console.log(dispatch(getPokemonsByName(searchPokemon)))
+    if(searchPokemon !== "") dispatch(getPokemonsByName(searchPokemon))
     else dispatch(getPokemonsByName(""))
-    console.log(searchPokemon,"segundo log");
   }, [dispatch, searchPokemon]);
 
   return (

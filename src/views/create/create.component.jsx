@@ -1,17 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./create.styles.css";
 import { createPokemon } from "../../redux/actions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import validation from "../../helpers/validation";
 
 function Create() {
   const types = useSelector((state) => state.types);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [typeSelect, setTypeSelect] = useState("")
-
+  const [typeSelect, setTypeSelect] = useState("");
+  const [errors, setErrors] = useState("");
+  const [noCreate, setNoCreate] = useState(false)
+  const [created, setCreated] = useState(false)
 
   const [formPokemon, setFormPokemon] = useState({
     name: "",
@@ -35,6 +37,7 @@ function Create() {
     const property = event.target.name;
     const value = event.target.value;
     setFormPokemon({ ...formPokemon, [property]: value });
+    setErrors(validation({ ...formPokemon, [property]: value }));
   };
 
   const handleType = (event) => {
@@ -44,25 +47,33 @@ function Create() {
         types: [...formPokemon.types, event.target.value],
       });
     }
-    setTypeSelect("")
+    setTypeSelect("");
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(createPokemon(formPokemon));
-    setFormPokemon({
-      name: "",
-      healthPoints: "",
-      attack: "",
-      defense: "",
-      speed: "",
-      height: "",
-      weight: "",
-      types: [],
-      image: "",
-    });
-    navigate("/home");
   };
+
+  const handleCreate = async () => {
+    try {
+      const response = await dispatch(createPokemon(formPokemon));
+      if (response.payload) {
+        setCreated(true)
+        setTimeout(() => {
+           navigate("/home")
+        }, 2000);
+      }
+    } catch (error) {
+      setNoCreate(true)
+      setTimeout(() => {
+        setNoCreate(false)
+      }, 1000);
+    }
+  };
+
+  useEffect(() => {
+    setErrors(validation({ ...formPokemon, types: [...formPokemon.types] }));
+  }, [formPokemon.types]);
 
   return (
     <div className="formContainer">
@@ -76,45 +87,49 @@ function Create() {
             name="name"
             value={formPokemon.name}
           />
+          <p className="p">{errors.name}</p>
         </div>
         <br />
         <div>
           <label htmlFor="healthPoints">Health Points:</label>
           <input
-            type="number"
+            type="text"
             placeholder="Health Points"
             onChange={handleChange}
             name="healthPoints"
             value={formPokemon.healthPoints}
           />
+          <p className="p">{errors?.healthPoints}</p>
         </div>
         <br />
         <div>
           <label htmlFor="attack">Attack:</label>
           <input
-            type="number"
+            type="text"
             placeholder="Attack Points"
             onChange={handleChange}
             name="attack"
             value={formPokemon.attack}
           />
+          <p className="p">{errors?.attack}</p>
         </div>
         <br />
         <div>
           <label htmlFor="defense">Defense:</label>
           <input
-            type="number"
+            type="text"
             placeholder="Defense Points"
             onChange={handleChange}
             name="defense"
             value={formPokemon.defense}
           />
+          <p className="p">{errors?.defense}</p>
         </div>
         <br />
         <div>
           <label htmlFor="speed">Speed:</label>
           <input
-            type="number"
+            type="text"
             placeholder="Speed Points"
             onChange={handleChange}
             name="speed"
@@ -125,7 +140,7 @@ function Create() {
         <div>
           <label htmlFor="height">Height:</label>
           <input
-            type="number"
+            type="text"
             placeholder="Poke Height"
             onChange={handleChange}
             name="height"
@@ -136,7 +151,7 @@ function Create() {
         <div>
           <label htmlFor="weight">Weight:</label>
           <input
-            type="number"
+            type="text"
             placeholder="Poke Weight"
             onChange={handleChange}
             name="weight"
@@ -146,8 +161,15 @@ function Create() {
         <br />
         <div>
           Types:
-          <select name="types" value={typeSelect} id="type" onChange={handleType}>
-            <option value="" disabled>Select Types</option>
+          <select
+            name="types"
+            value={typeSelect}
+            id="type"
+            onChange={handleType}
+          >
+            <option value="" disabled>
+              Select Types
+            </option>
             {types.length ? (
               types.map((type) => {
                 return (
@@ -160,6 +182,7 @@ function Create() {
               <>Loading</>
             )}
           </select>
+          <p className="p">{errors?.types}</p>
           <div>
             {formPokemon.types.map((type) => {
               return (
@@ -169,9 +192,7 @@ function Create() {
                   value={type}
                   key={type}
                 >
-                  {type}{" "}
-                  
-                  X
+                  {type} X
                 </button>
               );
             })}
@@ -187,9 +208,26 @@ function Create() {
             name="image"
             value={formPokemon.image}
           />
+          <p className="p">{errors?.image}</p>
         </div>
         <br />
-        <button type="submit">Create Pokemon</button>
+        <button
+          type="submit"
+          onClick={handleCreate}
+          disabled={
+            errors.name ||
+            errors.attack ||
+            errors.defense ||
+            errors.healthPoints ||
+            errors.types ||
+            errors.image
+          }
+        >
+          Create Pokemon
+        </button>
+        <br />
+        {created && <p>Creating Pokemon</p>}
+        {noCreate && <p>Pokemon already exist</p>}
       </form>
     </div>
   );
