@@ -14,8 +14,8 @@ function Detail() {
     return () => {dispatch(clearDetail())};
   }, [dispatch, id]);
   return (
-    <div>
-      <h2>Pokemon: {pokemon.name}</h2>
+    <div className="detail-container">
+      <h2>{pokemon.name}</h2>
       <h3>Health Points: {pokemon.healthPoints}</h3>
       <h3>Attack: {pokemon.attack}</h3>
       <h3>Defense: {pokemon.defense}</h3>

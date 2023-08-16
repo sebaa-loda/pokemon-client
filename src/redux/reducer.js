@@ -9,6 +9,7 @@ import {
   REMOVE_TYPE_FILTER,
   SET_ORIGIN_FILTER,
   SET_ORDER,
+  SET_PAGE,
 } from "./actionsTypes";
 
 const initialState = {
@@ -17,7 +18,8 @@ const initialState = {
   types: [],
   typeFilter: [],
   allPokemons: "all",
-  orderPokemons: "asc"
+  orderPokemons: "asc",
+  page : 0
 };
 
 const reducer = (state = initialState, action) => {
@@ -60,7 +62,7 @@ const reducer = (state = initialState, action) => {
     case POST_POKEMON:
       return {
         ...state,
-        pokemons: action.payload,
+        pokemons: [...state.pokemons, action.payload]
       };
     case SET_ORIGIN_FILTER:
       return {
@@ -71,6 +73,11 @@ const reducer = (state = initialState, action) => {
       return{
         ...state,
         orderPokemons: action.payload,
+      }
+    case SET_PAGE:
+      return{
+        ...state,
+        page: action.payload,
       }
     default:
       return { ...state };

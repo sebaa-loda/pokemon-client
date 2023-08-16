@@ -1,27 +1,23 @@
 import "./cards.styles.css";
 import Card from "../card/card.component";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setPage } from "../../redux/actions";
 
 export default function Cards() {
-  const { typeFilter, pokemons, allPokemons, orderPokemons } = useSelector(
-    (state) => state
-  );
-
-  const [page, setPage] = useState(0);
+  const dispatch = useDispatch();
+  const { typeFilter, pokemons, allPokemons, orderPokemons, page } = useSelector((state) => state);
   const pokemonsPerPage = 12;
-  const totalPages = Math.ceil(pokemons.length / pokemonsPerPage)
-  const startPage = page * pokemonsPerPage
-  const endPage = startPage + pokemonsPerPage
-  
+  const startPage = page * pokemonsPerPage;
+  const endPage = startPage + pokemonsPerPage;
+
   const nextHandler = () => {
-    setPage(page + 1)
-  }
+    dispatch(setPage(page + 1));
+  };
 
   const prevHandler = () => {
-    setPage(page - 1)
-  }
-  
+    dispatch(setPage(page - 1));
+  };
+
   const filterType = (paramsTypes) => (pokemon) =>
     paramsTypes.length
       ? pokemon.types.some((pokeType) => paramsTypes.includes(pokeType.name))
@@ -40,32 +36,46 @@ export default function Cards() {
     higherAttack: (a, b) => b.attack - a.attack,
   };
 
+  const pokemonsFilters = pokemons.filter(filterType(typeFilter))
+  .filter(originFilter[allPokemons])
+
+  const totalPages = Math.ceil(pokemonsFilters.length / pokemonsPerPage);
+
   return (
-    <div className="cards">
-      {pokemons.length ? (
-          pokemons
-            .filter(filterType(typeFilter))
-            .filter(originFilter[allPokemons])
-            .sort(order[orderPokemons])
-            .slice(startPage,endPage)
-            .map((pokemon) => {
-              return (
-                <Card
-                  key={pokemon.id}
-                  id={pokemon.id}
-                  name={pokemon.name}
-                  types={pokemon.types}
-                  image={pokemon.image}
-                />
-              );
-            })
+    <div>
+      <div className="cards">
+        {pokemons ? (
+          pokemonsFilters.length ? (
+            pokemonsFilters
+              .sort(order[orderPokemons])
+              .slice(startPage, endPage)
+              .map((pokemon) => {
+                return (
+                  <Card
+                    key={pokemon.id}
+                    id={pokemon.id}
+                    name={pokemon.name}
+                    types={pokemon.types}
+                    image={pokemon.image}
+                  />
+                );
+              })
+          ) : (
+            <div>Loading</div>
+          )
         ) : (
-          <div>Loading</div>
-        )
-}
-      <button onClick={prevHandler} disabled={page < 1}>Prev Page</button>
-      <h3>Page: {page + 1 }</h3>
-      <button onClick={nextHandler} disabled={page === totalPages - 1}>Next Page</button>
+          <div>Pokemon not found</div>
+        )}
+      </div>
+      <div className="buttonPage">
+        <button onClick={prevHandler} disabled={page < 1}>
+          Prev Page
+        </button>
+        <h3>Page: {page + 1}</h3>
+        <button onClick={nextHandler} disabled={page === totalPages - 1}>
+          Next Page
+        </button>
+      </div>
     </div>
   );
 }

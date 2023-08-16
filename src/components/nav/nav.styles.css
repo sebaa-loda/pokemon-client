@@ -1,0 +1,35 @@
+.Nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .Nav button {
+    padding: 8px 12px;
+    margin: 0 10px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+
+  .link{
+  text-decoration: none;
+  color: black;
+  }
+  
+  .Nav button:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+  }
+  
+  /* Responsiveness for smaller screens */
+  @media screen and (max-width: 768px) {
+    .Nav button {
+      font-size: 12px;
+      padding: 6px 10px;
+      margin: 0 6px;
+    }
+  }

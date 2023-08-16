@@ -8,11 +8,11 @@ export default function Nav() {
   return (
     <div className="Nav">
         {showHome && <button>
-        <NavLink to="/home">Home</NavLink>
+        <NavLink to="/home" className="link">Home</NavLink>
         </button>
       }
       {showCreate && <button>
-        <NavLink to="/create">Create</NavLink>
+        <NavLink to="/create" className="link">Create</NavLink>
       </button>
       }
     </div>

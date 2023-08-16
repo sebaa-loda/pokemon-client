@@ -9,6 +9,7 @@ import {
   REMOVE_TYPE_FILTER,
   SET_ORDER,
   SET_ORIGIN_FILTER,
+  SET_PAGE,
 } from "./actionsTypes.js";
 import axios from "axios";
 
@@ -54,7 +55,7 @@ export const getPokemonsByName = (name) => {
         payload: data,
       });
     } catch (error) {
-      return [];
+     console.log(error)
     }
   };
 };
@@ -114,6 +115,13 @@ export const createPokemon = (formPokemon) => {
       payload: data,
     })
    }
+}
+
+export const setPage = (page) => {
+  return {
+    type: SET_PAGE,
+    payload: page,
+  }
 }
 
 

@@ -59,15 +59,11 @@ function Create() {
       const response = await dispatch(createPokemon(formPokemon));
       if (response.payload) {
         setCreated(true)
-        setTimeout(() => {
-           navigate("/home")
-        }, 2000);
+        navigate("/home")
       }
     } catch (error) {
       setNoCreate(true)
-      setTimeout(() => {
-        setNoCreate(false)
-      }, 1000);
+      
     }
   };
 
@@ -212,6 +208,7 @@ function Create() {
         </div>
         <br />
         <button
+          className="buttonCreate"
           type="submit"
           onClick={handleCreate}
           disabled={

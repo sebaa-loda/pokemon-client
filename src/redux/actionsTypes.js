@@ -9,4 +9,4 @@ export const ADD_TYPE_FILTER = "ADD_TYPE_FILTER"
 export const REMOVE_TYPE_FILTER = "REMOVE_TYPE_FILTER"
 export const SET_ORIGIN_FILTER = "SET_ORIGIN_FILTER"
 export const SET_ORDER = "SET_ORDER"
-
+export const SET_PAGE = "SET_PAGE"

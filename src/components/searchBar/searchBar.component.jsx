@@ -15,7 +15,7 @@ export default function SearchBar() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setSearchPokemon(debouncedSearch);
-    }, 300);
+    }, 200);
     return () => {
       clearTimeout(timer);
     };

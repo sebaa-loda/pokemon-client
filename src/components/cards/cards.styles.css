@@ -1,8 +1,63 @@
-.cards{
-    width: 300px;
-    height: 300px;
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    grid-template-columns: repeat(2,3fr);
+.cards {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 40px;
+  justify-items: center;
+  margin-top: 20px;
+  @media (max-width:850px){
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  }
+  @media (max-width:1050px){
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
+    }
 }
+
+  
+  .card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    border-radius: 10%;
+  }
+  
+  .card img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    padding: 8px 12px;
+    margin: 0 5px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .buttonPage{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Responsiveness for smaller screens */
+  @media screen and (max-width: 768px) {
+    .cards {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+    }
+  
+    .card {
+      max-width: 150px;
+    }
+  }
